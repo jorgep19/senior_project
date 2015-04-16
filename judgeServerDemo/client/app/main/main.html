@@ -1,0 +1,60 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<article class="col-sx-12 alert" ng-show="response">
+  <div class="col-sx-12 alert" ng-class="{'alert-success': (response.statusCode == 200), 'alert-danger': (response.statusCode != 200)}">
+    response
+  </div>
+</article>
+
+<article class="col-sx-12">
+  <div class="form-group col-xs-12">
+    <label for="programmingLanguage">Programming Language</label>
+    <select class="form-control" id="programmingLanguage" ng-model="solution.language">
+      <option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-xs-6">
+    <label for="userId">UserId</label>
+    <input id="userId" type="text" class="form-control" ng-model="solution.userId">
+  </div>
+
+  <div class="form-group col-xs-6">
+    <label for="problemId">ProblemId</label>
+    <input id="problemId" type="text" class="form-control" ng-model="solution.problemId">
+  </div>
+
+  <!-- TODO make a select-->
+  <div class="form-group col-xs-6">
+    <label for="difficulty">Programming Language</label>
+    <select class="form-control" id="difficulty" ng-model="solution.difficulty">
+      <option ng-repeat="diff in difficulties" value="{{diff.id}}">{{diff.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group col-xs-6">
+    <label for="timeout">Timeout</label>
+    <input id="timeout" type="text" class="form-control" ng-model="solution.timeout">
+  </div>
+
+  <div class="form-group col-xs-12">
+    <label for="testInput">Test Input</label>
+    <input id="testInput" type="text" class="form-control" ng-model="solution.testInput">
+  </div>
+
+  <div class="form-group col-xs-12">
+    <label for="expectedOutput">Expected Output</label>
+    <input id="expectedOutput" type="text" class="form-control" ng-model="solution.expectedOutput">
+  </div>
+
+
+  <div class="form-group col-xs-12">
+    <label for="code" >Code</label>
+      <textarea id="code" class="form-control" ng-model="solution.code" rows="4" pattern=".{200,}"></textarea>
+  </div>
+
+  <button type="button" class="btn btn-success col-xs-12" ng-click="submit()">
+    Submit
+  </button>
+</article>
+
