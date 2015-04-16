@@ -3,7 +3,7 @@
 angular.module('judgeServerDemoApp')
   .controller('MainCtrl', function ($scope, $http) {
     $http.defaults.useXDomain = true;
-    $scope.judgeAPIUrl = "http://localhost\:8080/eval";
+    $scope.judgeAPIUrl = "http://localhost\:8080/evaluate";
 
     $scope.languages = [ "java", "cpp"];
 
