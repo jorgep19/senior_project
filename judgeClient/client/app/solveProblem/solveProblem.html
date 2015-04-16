@@ -5,7 +5,7 @@
    </HEAD>
    <BODY>
     <div class="solveProblemShape" id="solveDescription">
-    <div class="col-md-6">
+    <div class="col-md-5">
     <h3>{{getCurrentUser().name}} is solving {{problemName}}</h2>
      <h3 >Problem Description</h3>
       <p ng-bind-html="problemDescription"></p>
@@ -17,19 +17,24 @@
       <p ng-bind-html="output"></p>
 
       </div>
-      <div class="col-md-6">
+      <div class="col-md-7">
         <br>
         <br>
   <form role="form">
     <div class="form-group">
-        <label for="dropDown" class="col-sm-4 control-label">Choose the Language</label>
+      <h3> Input your solution here!</h3>
+      <textarea ng-model="code" class="form-control"  placeholder="Please name your class Main" rows="16" id="comment"></textarea>
+    </div>
+    <div class="col-md-2">
+    <button ng-click ="sendSubmission(code,getCurrentUser()._id,problemID, problemDifficulty,theInput,output)" type="button" class="btn btn-success">Submit</button>
+  </div>
+  <div class="col-md-5">
+    <label for="dropDown" class="col-sm-4 control-label">Language</label>
         <select id="dropDown" ng-model="theLanguage" value="Java">
           <option value="Java">java</option>
           <option value="C++">cpp</option>
         </select>
-      <textarea ng-model="code" class="form-control"  placeholder="Please name your class Main" rows="16" id="comment"></textarea>
-    </div>
-    <button ng-click ="sendSubmission(code,getCurrentUser()._id,problemID, problemDifficulty,theInput,output)" type="button" class="btn btn-success">Submit</button>
+      </div>
   </form>
   <p>{{outputAfter}}</p>
 </div>

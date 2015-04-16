@@ -23,7 +23,6 @@ angular.module('codeBossApp')
 
       $scope.clearField = function() {
         $scope.code="";
-        //$scope.outputAfter = "Hello";
       };
 
        $scope.sendSubmission = function(theCode,userID,problemID,problemDiff,input,output) {
