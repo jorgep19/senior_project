@@ -1,16 +1,25 @@
 package code_boss.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class CodeEvaluation {
     private static final String SERVER_ERROR_ERROR_MSG = "There was a internal error please try submitting the solution again";
     private static final String TIMEOUT_MSG = "The implementation of the solution didn't finished within the time required";
     private static final String SUCCESS_MSG = "The solution was accepted!";
     private static final String WRONG_ANSWER_MESSAGE = "The solution produce a wrong answer.";
 
+    private static final String USER_ID_KEY = "userId";
+    private static final String PROBLEM_ID_KEY = "problemId";
+    private static final String MESSAGE_KEY = "message";
+    private static final String EVAL_CODE_KEY = "evaluationCode";
+    private static final String SUCCESS_KEY = "isSuccess";
+
     private String userId;
     private String problemId;
     private String message;
     private int evaluationCode;
-    private boolean isSuccessful;
+    private boolean isSuccess;
 
     // constructor only for compulation issues
     public CodeEvaluation(UserSolution solution, String message) {
@@ -18,11 +27,11 @@ public class CodeEvaluation {
         this.problemId = solution.getProblemId();
         this.message = message;
         this.evaluationCode = 5;
-        this.isSuccessful = false;
+        this.isSuccess = false;
     }
 
     public CodeEvaluation(UserSolution solution, EvaluationRun run) {
-        this.isSuccessful = false;
+        this.isSuccess = false;
         this.userId = solution.getUserId();
         this.problemId = solution.getProblemId();
 
@@ -47,26 +56,33 @@ public class CodeEvaluation {
         } else {
             evaluationCode = 0;
             message = SUCCESS_MSG;
-            isSuccessful = true;
+            isSuccess = true;
         }
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public int getEvaluationCode() {
-        return evaluationCode;
-    }
-
-    public boolean isSuccessful() {
-        return isSuccessful;
     }
 
     @Override
     public String toString() {
         return String.format(
                 "{ 'userId': %s, 'problemId': %s, 'isSuccess': %s, 'evaluateCode': %d, 'message': %s }",
-                userId, problemId, String.valueOf(isSuccessful), evaluationCode, message);
+                userId, problemId, String.valueOf(isSuccess), evaluationCode, message);
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = null;
+        try {
+            json = new JSONObject();
+            json.put(USER_ID_KEY, userId);
+            json.put(PROBLEM_ID_KEY, problemId);
+            json.put(MESSAGE_KEY, message);
+            json.put(EVAL_CODE_KEY, evaluationCode);
+            json.put(SUCCESS_KEY, isSuccess);
+        } catch (JSONException e) {
+            System.out.println(
+                    String.format("Unable to create json for evaluation with userId %s and problemId %s",
+                        userId,
+                        problemId));
+        }
+
+        return json;
     }
 }
