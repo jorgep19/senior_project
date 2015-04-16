@@ -2,8 +2,8 @@
 
 angular.module('judgeServerDemoApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $http.defaults.useXDomain = true;
-    $scope.judgeAPIUrl = "http://localhost\:8080/evaluate";
+    //$http.defaults.useXDomain = true;
+    //$scope.judgeAPIUrl = "http://localhost\:8080/evaluate";
 
     $scope.languages = [ "java", "cpp"];
 
@@ -41,7 +41,7 @@ angular.module('judgeServerDemoApp')
     $scope.response = undefined;
 
     $scope.submit = function() {
-      $http.post($scope.judgeAPIUrl, $scope.solution)
+      $http.post("/api/requests", $scope.solution)
         .success(function(data) {
           $scope.response = data;
         });
