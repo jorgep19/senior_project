@@ -41,7 +41,7 @@ public class JavaCompiler extends CodeCompiler {
 
     @Override
     protected String getCompilationArgs() {
-        return MAIN;
+        return String.format("%s%s", MAIN, JAVA_EXT);
     }
 
     @Override
