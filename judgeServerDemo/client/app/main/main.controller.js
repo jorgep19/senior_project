@@ -35,7 +35,7 @@ angular.module('judgeServerDemoApp')
       "testInput": "",
       "expectedOutput": "Hello World!",
       "timeout": 5000,
-      "responseURL": "http://www.google.com"
+      "responseURL": "http://localhost\:9000/evaluation"
     };
 
     $scope.response = undefined;
