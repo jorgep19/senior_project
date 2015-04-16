@@ -4,9 +4,12 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var EvaluationSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  userId: String,
+  problemId: String,
+  isSuccess: Boolean,
+  evaluateCode: Number,
+  message: String
+
 });
 
 module.exports = mongoose.model('Evaluation', EvaluationSchema);

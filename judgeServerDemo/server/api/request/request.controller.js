@@ -3,6 +3,8 @@
 var requestify = require('requestify');
 var _ = require('lodash');
 var Request = require('./request.model');
+var judgeAPIUrl = "http://localhost\:8080/evaluate";
+var responseURL = "http://localhost\:9000/api/evaluations/receive";
 
 // Get list of requests
 exports.index = function(req, res) {
@@ -15,17 +17,19 @@ exports.index = function(req, res) {
 // Creates a new request in the DB.
 exports.create = function(req, res) {
   var evalutionrequest = req.body;
-  var judgeAPIUrl = "http://localhost\:8080/evaluate";
+  evalutionrequest.responseURL = responseURL;
 
   console.log("Sending: " + JSON.stringify(evalutionrequest) + " to " + judgeAPIUrl);
   requestify.post(judgeAPIUrl, evalutionrequest).then(function(response) {
-      var result =response.getBody();
+      var result = response.getBody();
       console.log(result);
 
       if(result.statusCode == 200) {
         Request.create(evalutionrequest, function(err, request) {
             if(err) { return handleError(res, err); }
-            return res.json(201, request);
+
+            console.log("Saved to database: " + JSON.stringify(request));
+            return res.json(201, result);
         });
       } else {
         return res.json(result);

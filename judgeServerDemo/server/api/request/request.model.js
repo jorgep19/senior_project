@@ -1,12 +1,20 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Evaluation = require('../evaluation/evaluation.model');
 
 var RequestSchema = new Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  userId: String,
+  problemId: String,
+  language: String,
+  difficulty: Number,
+  code: String,
+  testInput: String,
+  expectedOutput: String,
+  timeout: Number,
+  responseURL: String,
+  evaluation: [Evaluation]
 });
 
 module.exports = mongoose.model('Request', RequestSchema);

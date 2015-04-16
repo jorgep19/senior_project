@@ -2,9 +2,6 @@
 
 angular.module('judgeServerDemoApp')
   .controller('MainCtrl', function ($scope, $http) {
-    //$http.defaults.useXDomain = true;
-    //$scope.judgeAPIUrl = "http://localhost\:8080/evaluate";
-
     $scope.languages = [ "java", "cpp"];
 
     $scope.difficulties = [
@@ -34,8 +31,7 @@ angular.module('judgeServerDemoApp')
       "code": "public class Main { public static void main(String[] args) { System.out.println(\"Hello World!\"); } }",
       "testInput": "",
       "expectedOutput": "Hello World!",
-      "timeout": 5000,
-      "responseURL": "http://localhost\:9000/api/evaluations/receive"
+      "timeout": 5000
     };
 
     $scope.response = undefined;
