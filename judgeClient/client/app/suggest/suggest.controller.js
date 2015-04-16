@@ -3,6 +3,15 @@
 angular.module('codeBossApp')
   .controller('SuggestCtrl', function ($scope, $http, $location) {
 
+        $scope.clearFields = function(){
+          $scope.name="";
+           $scope.difficulty="";
+           $scope.description="";
+           $scope.example="";
+           $scope.input="";
+           $scope.output="";
+        }
+
   		  $scope.submitButton = function(name,difficulty,description,example,input,output) {
 
            $scope.problemName=name;
@@ -25,7 +34,7 @@ angular.module('codeBossApp')
         
 
            // Simple POST request example (passing data) :
-				$http.post('/api/problems', {name:$scope.problemName, active:true, difficulty:$scope.problemDifficulty,
+				$http.post('/api/problems', {name:$scope.problemName, active:false, difficulty:$scope.problemDifficulty,
 					description:$scope.problemDescription, example:$scope.problemExample, input:$scope.problemInput,
 					output:$scope.problemOutput}).
 				
@@ -44,6 +53,8 @@ angular.module('codeBossApp')
           console.log($scope.problemExample);
           console.log($scope.problemInput);
           console.log($scope.problemOutput);
+          $scope.clearFields();
+
           }  
 
 

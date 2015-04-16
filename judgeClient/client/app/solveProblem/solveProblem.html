@@ -22,11 +22,12 @@
         <br>
   <form role="form">
     <div class="form-group">
-      <label for="comment">Input Code Here:</label>
-      <textarea ng-model="code" class="form-control"  placeholder="public class Main {
-    public static void main(String[] args) {
-  }
-}" rows="16" id="comment"></textarea>
+        <label for="dropDown" class="col-sm-4 control-label">Choose the Language</label>
+        <select id="dropDown" ng-model="theLanguage" value="Java">
+          <option value="Java">java</option>
+          <option value="C++">cpp</option>
+        </select>
+      <textarea ng-model="code" class="form-control"  placeholder="Please name your class Main" rows="16" id="comment"></textarea>
     </div>
     <button ng-click ="sendSubmission(code,getCurrentUser()._id,problemID, problemDifficulty,theInput,output)" type="button" class="btn btn-success">Submit</button>
   </form>
