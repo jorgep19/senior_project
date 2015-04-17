@@ -7,7 +7,7 @@ var SolutionSchema = new Schema({
   code: String,	
   userId: String,
   problemId: String,
-  problemDifficulty:Number,
+  difficulty:Number,
   testInput: String,
   expectedOutput: String,
   language: String,

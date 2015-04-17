@@ -34,7 +34,7 @@ angular.module('codeBossApp')
         
 
            // Simple POST request example (passing data) :
-				$http.post('/api/problems', {name:$scope.problemName, active:false, difficulty:$scope.problemDifficulty,
+				$http.post('/api/problems', {name:$scope.problemName, active:true, difficulty:$scope.problemDifficulty,
 					description:$scope.problemDescription, example:$scope.problemExample, input:$scope.problemInput,
 					output:$scope.problemOutput}).
 				

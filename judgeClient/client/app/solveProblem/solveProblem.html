@@ -15,28 +15,36 @@
       <p ng-bind-html="theInput"></p>
       <h3>Output</h3>
       <p ng-bind-html="output"></p>
-
       </div>
       <div class="col-md-7">
         <br>
+        <article class="col-sx-12 alert" ng-show="response">
+  <div class="col-sx-12 alert" ng-class="{'alert-success': (response.statusCode == 200), 'alert-danger': (response.statusCode != 200)}">
+    {{ response.message }}
+  </div>
+</article>
         <br>
-  <form role="form">
+  <form role="form" name ="myForm" novalidate>
     <div class="form-group">
       <h3> Input your solution here!</h3>
-      <textarea ng-model="code" class="form-control"  placeholder="Please name your class Main" rows="16" id="comment"></textarea>
+      <textarea ng-model="code" class="form-control" name="comment" placeholder="Please name your class Main" rows="16" id="comment" required></textarea>
+      <span style="color:red" ng-show="myForm.comment.$dirty && myForm.comment.$invalid">
+        <span ng-show="myForm.comment.$error.required"> Code is required. 
+        </span>
+      </span>
     </div>
     <div class="col-md-2">
-    <button ng-click ="sendSubmission(code,getCurrentUser()._id,problemID, problemDifficulty,theInput,output)" type="button" class="btn btn-success">Submit</button>
+    <button ng-disabled="myForm.comment.$invalid" ng-click ="sendSubmission(code,getCurrentUser()._id,problemID, problemDifficulty,theInput,output)" type="button" class="btn btn-success">Submit </button>
   </div>
   <div class="col-md-5">
     <label for="dropDown" class="col-sm-4 control-label">Language</label>
         <select id="dropDown" ng-model="theLanguage" value="Java">
-          <option value="Java">java</option>
-          <option value="C++">cpp</option>
+          <option value="java">java</option>
+          <option value="cpp">cpp</option>
         </select>
       </div>
   </form>
-  <p>{{outputAfter}}</p>
+  <div ng-show="loader.loading">Loading</div>
 </div>
 </div>
    </BODY>

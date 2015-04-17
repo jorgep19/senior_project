@@ -10,10 +10,9 @@ angular.module('judgeServerDemoApp')
         $scope.request = data;
         console.log(data);
       });
-
+      $scope.description = "";
     $scope.getEvaluationLabel = function(evaluation) {
-      if(!evaluation) {
-        return "";
+    	console.log(evaluation);
       }
 
       var description;

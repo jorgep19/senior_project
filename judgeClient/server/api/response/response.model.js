@@ -7,8 +7,8 @@ var ResponseSchema = new Schema({
   userId: String,
   problemId: String,
   isSuccess: Boolean,
-  evaluateCode: Number,
-  message: String
+  evaluationCode: Number,
+  message: String,
 });
 
 module.exports = mongoose.model('Response', ResponseSchema);

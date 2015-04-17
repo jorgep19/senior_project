@@ -2,6 +2,9 @@
 
 var _ = require('lodash');
 var Solution = require('./solution.model');
+var requestify = require('requestify');
+var judgeAPIURL = "http://localhost\:8080/evaluate";
+
 
 // Get list of solutions
 exports.index = function(req, res) {
@@ -10,6 +13,7 @@ exports.index = function(req, res) {
     return res.json(200, solutions);
   });
 };
+
 
 // Get a single solution
 exports.show = function(req, res) {
@@ -20,13 +24,34 @@ exports.show = function(req, res) {
   });
 };
 
+
+
+
+
 // Creates a new solution in the DB.
 exports.create = function(req, res) {
-  Solution.create(req.body, function(err, solution) {
+  console.log()
+  var evaluationrequest =req.body;
+  var responseURL = evaluationrequest.responseURL;
+  console.log(responseURL);
+
+  requestify.post(judgeAPIURL, evaluationrequest).then(function(response) {
+    
+    var result = response.getBody();
+    console.log(result);
+  
+  if(result.statusCode == 200){
+  Solution.create(evaluationrequest, function(err, solution) {
     if(err) { return handleError(res, err); }
+
     return res.json(201, solution);
   });
-};
+    } else {
+    return res.json(result);
+  }
+    });
+  };
+
 
 // Updates an existing solution in the DB.
 exports.update = function(req, res) {
