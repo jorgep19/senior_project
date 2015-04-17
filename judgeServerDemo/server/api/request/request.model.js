@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Evaluation = require('../evaluation/evaluation.model');
+    Schema = mongoose.Schema;
 
 var RequestSchema = new Schema({
   userId: String,
@@ -14,7 +13,11 @@ var RequestSchema = new Schema({
   expectedOutput: String,
   timeout: Number,
   responseURL: String,
-  evaluation: [Evaluation]
+  evaluation: {
+    message: String,
+    evaluationCode: Number,
+    isSuccess: Boolean
+  }
 });
 
 module.exports = mongoose.model('Request', RequestSchema);

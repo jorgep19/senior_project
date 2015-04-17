@@ -18,6 +18,7 @@ exports.index = function(req, res) {
 exports.create = function(req, res) {
   var evalutionrequest = req.body;
   evalutionrequest.responseURL = responseURL;
+  evalutionrequest.evaluation = null;
   console.log("Sending: " + JSON.stringify(evalutionrequest) + " to " + judgeAPIUrl);
 
   // send to judge
