@@ -12,6 +12,10 @@ angular.module('judgeServerDemoApp')
       });
 
     $scope.getEvaluationLabel = function(evaluation) {
+      if(!evaluation) {
+        return "";
+      }
+
       var description;
       switch(evaluation.evaluationCode) {
         case 0:

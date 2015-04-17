@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('judgeServerDemoApp')
-  .controller('MainCtrl', function ($scope, $http, $sanitize) {
+  .controller('MainCtrl', function ($scope, $http) {
     $scope.languages = [ "java", "cpp"];
 
     $scope.difficulties = [
@@ -63,7 +63,7 @@ angular.module('judgeServerDemoApp')
       $scope.theTimeout = 3000;
       $scope.theTestInput = "";
       $scope.theExpectedOutput= "Hello World!";
-      $scope.theCode = "#include <iostream> <br>using namespace std; int main() { cout << x; return 0; }";
+      $scope.theCode = "using namespace std; int main() { cout << x; return 0; }";
     };
 
 
@@ -110,8 +110,8 @@ angular.module('judgeServerDemoApp')
       $scope.theDifficulty = 1;
       $scope.theTimeout = 3000;
       $scope.theTestInput = "2 3 33 44 3 4 0";
-      $scope.theExpectedOutput= "Hello World!";
-      $scope.theCode = "#include <iostream> <br>using namespace std; int main() { int a,b; cin >> a; while(a != 0) { cin >> b; cout << a + b <<endl; cin >> a; } return 0; }";
+      $scope.theExpectedOutput= "5\n77\n7\n";
+      $scope.theCode = "#include <iostream>\n using namespace std; int main() { int a,b; cin >> a; while(a != 0) { cin >> b; cout << a + b << endl; cin >> a; } return 0; }";
     };
 
     $scope.setJavaSuccess = function() {

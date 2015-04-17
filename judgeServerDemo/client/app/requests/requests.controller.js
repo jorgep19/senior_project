@@ -5,10 +5,14 @@ angular.module('judgeServerDemoApp')
     $http.get('/api/requests').
       success(function(data) {
           $scope.requests = data;
-          console.log(data[0]);
+          console.log(JSON.stringify(data));
       });
 
     $scope.getEvaluationDescription = function(evaluation) {
+      if(!evaluation) {
+        return "";
+      }
+
       var description;
       switch(evaluation.evaluationCode) {
         case 0:
