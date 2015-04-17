@@ -19,7 +19,7 @@ public class EvaluationDirector implements ICompilationResultListener, ICodeEval
     private static final String ADDITIONALS_KEY_FORMAT = "%s_%s";
 
     private CodeCompiler[] compilers;
-    private ResultSender resultSender;
+    private EvaluationSender evaluationSender;
     private CodeEvaluator[] evaluators;
     // this two are used so that if a user submits +two answers for the same problem then
     // the later arriving anwser will be only evaluated after the first one has been evaluated
@@ -31,7 +31,7 @@ public class EvaluationDirector implements ICompilationResultListener, ICodeEval
         compilers = new CodeCompiler[] { new JavaCompiler(this), new CppCompiler(this)};
         evaluators = new CodeEvaluator[] { new JavaEvaluator(this), new CppEvaluator(this) };
 
-        resultSender = new ResultSender();
+        evaluationSender = new EvaluationSender();
         beingEvaluated = Collections.synchronizedList(new ArrayList<UserSolution>());
         additionalSolutions = new ConcurrentHashMap<String, UserSolution>();
         evalQueue = new PriorityBlockingQueue<QueuedUserSolution>(500, new Comparator<QueuedUserSolution>() {
@@ -136,12 +136,13 @@ public class EvaluationDirector implements ICompilationResultListener, ICodeEval
         UserSolution additionalSolution = additionalSolutions.get(
                 String.format(ADDITIONALS_KEY_FORMAT, currentSolution.getUserId(), currentSolution.getProblemId()));
         if (additionalSolution != null) {
+            additionalSolutions.remove(String.format(ADDITIONALS_KEY_FORMAT, currentSolution.getUserId(), currentSolution.getProblemId()));
             addSolutionToQueue(additionalSolution);
         }
 
 
         // send the result
-        resultSender.send(evaluation, compilation.getSolution().getResponseURL());
+        evaluationSender.send(evaluation, compilation.getSolution().getResponseURL());
     }
 
     private synchronized boolean addSolutionToQueue(UserSolution solution) {
@@ -187,7 +188,7 @@ public class EvaluationDirector implements ICompilationResultListener, ICodeEval
 
                         // not language then something when wrong
                         if (languageIndex == -1) {
-                            resultSender.send(new CodeEvaluation(solution, (EvaluationRun) null), solution.getResponseURL());
+                            evaluationSender.send(new CodeEvaluation(solution, (EvaluationRun) null), solution.getResponseURL());
                             // start the evaluation process
                         } else {
                             final int i = languageIndex;
