@@ -8,7 +8,7 @@ exports.receiveEvaluation = function(req, res) {
   console.log("evaluation received " + JSON.stringify(evaluation));
 
     Request.find(
-      {userId: evaluation.userId, problemId: evaluation.problemId},
+      { userId: evaluation.userId, problemId: evaluation.problemId },
       function(err, requests) {
         if (err) {
           console.error(err);
@@ -21,7 +21,7 @@ exports.receiveEvaluation = function(req, res) {
         if(requests.length > 0) {
           var withEval = requests[0];
           withEval.evaluation = evaluation;
-          var updated = _.merge(requests[0], req.body);
+          var updated = _.merge(requests[0], withEval);
 
           updated.save(function (err, up) {
             if (err) { return handleError(res, err); }
@@ -36,19 +36,3 @@ exports.receiveEvaluation = function(req, res) {
 function handleError(res, err) {
   return res.send(500, err);
 }
-
-
-//
-//Evaluation.create(evaluation, function(err, insertedEvaluation) {
-//  if(err) { return handleError(res, err); }
-//
-//  requests[0].evaluation = [insertedEvaluation];
-//  requests[0].save(function (err, evaluatedRequest) {
-//    if (err) {
-//      console.error(err);
-//      return res.json(err);
-//    }
-//
-//    return res.json(201, evaluatedRequest);
-//  });
-//});
