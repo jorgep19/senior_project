@@ -18,25 +18,36 @@ exports.index = function(req, res) {
 exports.create = function(req, res) {
   var evalutionrequest = req.body;
   evalutionrequest.responseURL = responseURL;
-
   console.log("Sending: " + JSON.stringify(evalutionrequest) + " to " + judgeAPIUrl);
+
+  // send to judge
   requestify.post(judgeAPIUrl, evalutionrequest).then(function(response) {
-      var result = response.getBody();
-      console.log(result);
+    var result = response.getBody();
+    console.log(result);
 
-      if(result.statusCode == 200) {
-        Request.create(evalutionrequest, function(err, request) {
-            if(err) { return handleError(res, err); }
+    if(result.statusCode == 200) {
+      // only save if there no request for this problem on the database already
+      Request.find(
+        {userId: evalutionrequest.userId, problemId: evalutionrequest.problemId},
+        function(err, requests) {
+          if(err) { return handleError(res, err); }
 
-            console.log("Saved to database: " + JSON.stringify(request));
-            return res.json(201, result);
-        });
-      } else {
-        return res.json(result);
-      }
+          // save only if there are aren't entries already
+          if(requests.length > 0) {
+            return res.json(result);
+          } else {
+            Request.create(evalutionrequest, function(err, request) {
+              if(err) { return handleError(res, err); }
+
+              console.log("Saved to database: " + JSON.stringify(request));
+              return res.json(result);
+            });
+          }
+      });
+    } else {
+      return res.json(result);
+    }
   });
-
-  //
 };
 
 function handleError(res, err) {

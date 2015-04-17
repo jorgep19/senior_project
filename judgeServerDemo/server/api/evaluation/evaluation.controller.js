@@ -2,30 +2,42 @@
 
 var _ = require('lodash');
 var Evaluation = require('./evaluation.model');
+var Request = require('../request/request.model');
 
-// Get a single evaluation
-exports.show = function(req, res) {
-  Evaluation.findById(req.params.id, function (err, evaluation) {
-    if(err) { return handleError(res, err); }
-    if(!evaluation) { return res.send(404); }
-    return res.json(evaluation);
-  });
-};
-
-// Creates a new evaluation in the DB.
-exports.requestEvaluation = function(req, res) {
-  Evaluation.create(req.body, function(err, evaluation) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, evaluation);
-  });
-};
-
-// Updates an existing evaluation in the DB.
 exports.receiveEvaluation = function(req, res) {
-  console.log(req.body);
-  return res.send("Good :)");
-};
+  var evaluation = req.body;
+  console.log(evaluation);
 
+  //{ message: 'The solution was accepted!',
+  //  evaluationCode: 0,
+  //  problemId: '19',
+  //  userId: 'jorgep',
+  //  isSuccess: true }
+
+    Request.find(
+      {userId: evaluation.userId, problemId: evaluation.problemId},
+      function(err, requests) {
+        if (err) {
+          console.error(err);
+          return res.json(err);
+        }
+
+        // should only be one
+        if(requests.length > 0) {
+          requests[0].evaluation = [evaluation];
+          requests[0].save(function (err, evaluatedRequest) {
+            if (err) {
+              console.error(err);
+              return res.json(err);
+            }
+
+            return res.json(201, evaluatedRequest);
+          });
+        } else {
+          return res.send("Didn't find request matching evaluation ids");
+        }
+    });
+};
 
 function handleError(res, err) {
   return res.send(500, err);
