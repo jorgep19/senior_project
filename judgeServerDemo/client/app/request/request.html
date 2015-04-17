@@ -2,12 +2,43 @@
 
 <div class="col-xs-12">
 
-  <p class="col-xs-10">
+  <p class="col-xs-9">
     <b><span>Language: </span></b>
-    <span>Java</span>
+    <span>{{ request.language }}</span>
+    <br>
+    <b><span>Timeout: </span></b>
+    <span>{{ request.timeout }} ms</span>
   </p>
-  <div class="col-xs-2 alert alert-success" role="alert">
-    Accepted!
+  <div class="col-xs-3 alert" \
+       ng-class="{ 'alert-success': request.evaluation.evaluationCode == 0 ,
+       'alert-danger': request.evaluation.evaluationCode !=0}">
+    {{ getEvaluationLabel(request.evaluation) }}
   </div>
-This is the request view. {{ message }}
+
+  <div class="col-xs-12 well">
+    {{ request.code }}
+  </div>
+
+  <b><span>Input: </span></b>
+  <div class="col-xs-12 well">
+    {{ request.testInput }}
+  </div>
+
+
+
+  <div ng-hide="(request.evaluation.evaluationCode == 0)" class="col-xs-5 alert alert-danger">
+    user output
+  </div>
+    <div ng-show="(request.evaluation.evaluationCode == 0)" class="col-xs-5  alert alert-success">
+    {{ request.expectedOutput }}
+  </div>
+
+  <div class="col-xs-2">
+  </div>
+
+  <div class="col-xs-5  alert alert-success">
+    {{ request.expectedOutput }}
+  </div>
+
+
 </div>

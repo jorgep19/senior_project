@@ -7,7 +7,6 @@ public class CodeEvaluation {
     private static final String SERVER_ERROR_ERROR_MSG = "There was a internal error please try submitting the solution again";
     private static final String TIMEOUT_MSG = "The implementation of the solution didn't finished within the time required";
     private static final String SUCCESS_MSG = "The solution was accepted!";
-    private static final String WRONG_ANSWER_MESSAGE = "The solution produce a wrong answer.";
 
     private static final String USER_ID_KEY = "userId";
     private static final String PROBLEM_ID_KEY = "problemId";
@@ -21,7 +20,7 @@ public class CodeEvaluation {
     private int evaluationCode;
     private boolean isSuccess;
 
-    // constructor only for compulation issues
+    // constructor only for compilation issues
     public CodeEvaluation(UserSolution solution, String message) {
         this.userId = solution.getUserId();
         this.problemId = solution.getProblemId();
@@ -51,7 +50,7 @@ public class CodeEvaluation {
         // solution didn't produce the expected output
         } else if(!solution.getExpectedOutput().trim().equals(run.output.trim())) {
             evaluationCode = 1;
-            message = WRONG_ANSWER_MESSAGE;
+            message =  run.output;
         // GOOD SOLUTION!!!! we got a winner!
         } else {
             evaluationCode = 0;
