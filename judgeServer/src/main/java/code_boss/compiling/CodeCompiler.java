@@ -47,6 +47,13 @@ public abstract class CodeCompiler {
                 String.format("Unable to delete compiled file at %s", dirPath);
         System.out.println(msg);
 
+        // sleep so that the directory is empty when we try to delete it
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // delete problem directory
         File dir = new File(dirPath);
         if (dir.exists()) {

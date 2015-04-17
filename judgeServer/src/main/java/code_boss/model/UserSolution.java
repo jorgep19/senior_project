@@ -29,6 +29,7 @@ public class UserSolution {
 
     public UserSolution(JSONObject data) throws JSONException {
         this.data = data;
+
         this.userId = data.getString("userId");
         this.problemId = data.getString("problemId");
         this.language = data.getString("language");
