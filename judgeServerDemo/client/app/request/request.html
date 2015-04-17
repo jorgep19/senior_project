@@ -9,7 +9,7 @@
     <b><span>Timeout: </span></b>
     <span>{{ request.timeout }} ms</span>
   </p>
-  <div class="col-xs-3 alert" \
+  <div class="col-xs-3 alert" 
        ng-class="{ 'alert-success': request.evaluation.evaluationCode == 0 ,
        'alert-danger': request.evaluation.evaluationCode !=0}">
     {{ getEvaluationLabel(request.evaluation) }}

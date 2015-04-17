@@ -72,10 +72,10 @@ angular.module('judgeServerDemoApp')
       $scope.theUserId = "jorgep";
       $scope.theProblemId = "Hello Timeout";
       $scope.theDifficulty = 1;
-      $scope.theTimeout = 0;
+      $scope.theTimeout = 3000;
       $scope.theTestInput = "";
       $scope.theExpectedOutput= "Hello World!";
-      $scope.theCode = "public class Main { public static void main(String[] args) { System.out.println(\"Hello World!\"); } }";
+      $scope.theCode = "public class Main { public static void main(String[] args) { while(true){} } }";
     };
 
 

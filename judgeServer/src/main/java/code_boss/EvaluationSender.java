@@ -11,7 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ResultSender {
+public class EvaluationSender {
 
     public void send(CodeEvaluation evaluation, String url) {
         System.out.println(String.format("Sending result %s to %s", evaluation, url));

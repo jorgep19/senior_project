@@ -41,8 +41,8 @@ public abstract class CodeEvaluator {
     private EvaluationRun runWithinTimeout(ProcessBuilder pb, UserSolution solution) {
         try {
             EvaluationRun run = new EvaluationRun();
-            long end = System.currentTimeMillis() + solution.getTimeout();
             System.out.println(String.format("Starting execution of %s", solution));
+            long end = System.currentTimeMillis() + solution.getTimeout();
             Process solutionProcess = pb.start();
 
             // give input to the solution
@@ -66,7 +66,12 @@ public abstract class CodeEvaluator {
             }
 
             System.out.println(String.format("Finished execution of %s with exitCode %d", solution, run.exitCode));
-            run.output = getProgramOutput(solutionProcess.getInputStream());
+            if(run.timedOut) {
+                solutionProcess.destroy();
+                run.output = "timed out";
+            } else {
+                run.output = getProgramOutput(solutionProcess.getInputStream());
+            }
 
             return run;
         } catch (IOException e) {
