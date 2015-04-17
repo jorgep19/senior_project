@@ -51,6 +51,14 @@ exports.create = function(req, res) {
   });
 };
 
+exports.show = function(req, res) {
+  Request.findById(req.params.id, function (err, request) {
+    if(err) { return handleError(res, err); }
+    if(!request) { return res.send(404); }
+    return res.json(request);
+  });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }
