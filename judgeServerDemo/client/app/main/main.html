@@ -6,54 +6,87 @@
   </div>
 </article>
 
+<div class="col-xs-12">
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setToJavaCompFail()" >
+    Java Comp Error
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setToCppCompFail()" >
+    C++ Comp Error
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setTotimeOut()" >
+    Timeout
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setToWrongAnswer()" >
+    Wrong Answer
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setRunTimeError()" >
+    Run Time Error
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setCppSuccess()" >
+    C++ Success
+  </button>
+  <button type="button" class="col-xs-2 btn btn-primary"
+          ng-click ="setJavaSuccess()" >
+    Java Success
+  </button>
+</div>
+
+
 <article class="col-sx-12">
   <div class="form-group col-xs-12">
     <label for="programmingLanguage">Programming Language</label>
-    <select class="form-control" id="programmingLanguage" ng-model="solution.language">
+    <select class="form-control" id="programmingLanguage" ng-model="theLanguage">
       <option ng-repeat="language in languages" value="{{language}}">{{language}}</option>
     </select>
   </div>
 
   <div class="form-group col-xs-6">
     <label for="userId">UserId</label>
-    <input id="userId" type="text" class="form-control" ng-model="solution.userId">
+    <input id="userId" type="text" class="form-control" ng-model="theUserId">
   </div>
 
   <div class="form-group col-xs-6">
     <label for="problemId">ProblemId</label>
-    <input id="problemId" type="text" class="form-control" ng-model="solution.problemId">
+    <input id="problemId" type="text" class="form-control" ng-model="theProblemId">
   </div>
 
   <!-- TODO make a select-->
   <div class="form-group col-xs-6">
     <label for="difficulty">Programming Language</label>
-    <select class="form-control" id="difficulty" ng-model="solution.difficulty">
+    <select class="form-control" id="difficulty" ng-model="theDifficulty">
       <option ng-repeat="diff in difficulties" value="{{diff.id}}">{{diff.name}}</option>
     </select>
   </div>
 
   <div class="form-group col-xs-6">
     <label for="timeout">Timeout</label>
-    <input id="timeout" type="text" class="form-control" ng-model="solution.timeout">
+    <input id="timeout" type="text" class="form-control" ng-model="theTimeout">
   </div>
 
   <div class="form-group col-xs-12">
     <label for="testInput">Test Input</label>
-    <input id="testInput" type="text" class="form-control" ng-model="solution.testInput">
+    <textarea ng-bind-html="theTestInput" class="form-control" rows="4" id="testInput"></textarea>
   </div>
 
   <div class="form-group col-xs-12">
     <label for="expectedOutput">Expected Output</label>
-    <input id="expectedOutput" type="text" class="form-control" ng-model="solution.expectedOutput">
+    <textarea ng-bind-html="theExpectedOutput" class="form-control" rows="4" id="expectedOutput"></textarea>
   </div>
 
 
   <div class="form-group col-xs-12">
     <label for="code" >Code</label>
-      <textarea id="code" class="form-control" ng-model="solution.code" rows="4" pattern=".{200,}"></textarea>
+    <textarea ng-bind-html="theCode" class="form-control" rows="16" id="code"></textarea>
   </div>
 
-  <button type="button" class="btn btn-success col-xs-12" ng-click="submit()">
+  <button type="button" class="col-xs-12 btn btn-success"
+          ng-click ="submit(theLanguage, theUserId, theProblemId, theDifficulty, theTimeout, theTestInput, theExpectedOutput, theCode)" >
     Submit
   </button>
 </article>

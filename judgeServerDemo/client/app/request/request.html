@@ -27,7 +27,7 @@
 
 
   <div ng-hide="(request.evaluation.evaluationCode == 0)" class="col-xs-5 alert alert-danger">
-    user output
+    {{ request.evaluation.message }}
   </div>
     <div ng-show="(request.evaluation.evaluationCode == 0)" class="col-xs-5  alert alert-success">
     {{ request.expectedOutput }}
